@@ -1,3 +1,4 @@
 env
 SentimentAnalysis/.ipynb_checkpoints/
 SentimentAnalysis/McDonald_s_Reviews.csv
+SentimentAnalysis/McDonald_s_Reviews_freqtbl.csv
