@@ -77,7 +77,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 13,
    "id": "2ebc6d02-e6e9-4f9c-b2b4-2f53a5e9a2e6",
    "metadata": {},
    "outputs": [
@@ -145,7 +145,7 @@
        "4  I repeat my order 3 times in the drive thru, a...       1"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -164,7 +164,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 14,
    "id": "795e255a-7253-4437-884f-71fa2cb26b9d",
    "metadata": {},
    "outputs": [
@@ -232,7 +232,7 @@
        "4  I repeat my order 3 times in the drive thru, a...          0"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 14,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -258,6 +258,106 @@
    "metadata": {},
    "source": [
     "# Data Preprocessing"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "ce0a7501-60eb-42d7-8d7a-cf080c2aef6e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def preprocessing(ipString,tokenizer,stopwords,lemmatizer):\n",
+    "    #preprocessing\n",
+    "    op = ipString.lower()\n",
+    "    op = tokenizer.tokenize(op)\n",
+    "    op = [token for token in op if token not in stopwords]\n",
+    "    op = [lemmatizer.lemmatize(token) for token in op]\n",
+    "    return op"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "596ba80e-837a-472f-a47d-3619755b98f1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>review</th>\n",
+       "      <th>Sentiment</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>[look, like, someone, spit, food, ?, normal, t...</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>[', mcdonalds, ., far, food, atmosphere, go, ....</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>[made, mobile, order, got, speaker, checked, ....</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>[mc, ., crispy, chicken, sandwich, �����������...</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>[repeat, order, 3, time, drive, thru, ,, still...</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                              review  Sentiment\n",
+       "0  [look, like, someone, spit, food, ?, normal, t...          0\n",
+       "1  [', mcdonalds, ., far, food, atmosphere, go, ....          1\n",
+       "2  [made, mobile, order, got, speaker, checked, ....          0\n",
+       "3  [mc, ., crispy, chicken, sandwich, �����������...          1\n",
+       "4  [repeat, order, 3, time, drive, thru, ,, still...          0"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "tokenizer = nltk.tokenize.WordPunctTokenizer()\n",
+    "stopwords = nltk.corpus.stopwords.words('english')\n",
+    "lemmatizer = nltk.stem.WordNetLemmatizer()\n",
+    "\n",
+    "dataset['review'] = dataset['review'].apply(lambda review: preprocessing(review, tokenizer, stopwords, lemmatizer))\n",
+    "dataset.head()"
    ]
   },
   {
