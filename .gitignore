@@ -3,3 +3,4 @@ env
 SentimentAnalysis/McDonald_s_Reviews.csv
 SentimentAnalysis/McDonald_s_Reviews_freqtbl.csv
 SentimentAnalysis/McDonald_s_Reviews_probtbl.csv
+AutoCorrect/Data/*
